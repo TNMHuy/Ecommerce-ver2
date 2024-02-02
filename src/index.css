@@ -1,0 +1,14 @@
+#marqueeText{
+    width: 100%;
+    animation: marquee 5s infinity;
+}
+@keyframes marquee {
+    0%{
+        
+        transform:'translateX(100%)';
+
+    }
+    100%{
+        transform:'translateX(0%)';
+    }
+}
