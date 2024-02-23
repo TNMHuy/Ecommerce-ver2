@@ -9,10 +9,10 @@ import ChangePasswordForm from './ChangePassWordForm';
 const EditUserForm = ({formSchema,initialValues}) => {
     const [success,setSuccess] = useState(false)
     const handleFormSubmit = async (data)=>{
-        console.log(data);
+        // console.log(data);
         const res = await updateCurrentUser(data)
         setSuccess(true)
-        setTimeout(()=>setSuccess(false),3000)
+        // setTimeout(()=>setSuccess(false),3000)
       }
     
     const { values, handleBlur, handleChange, handleSubmit,errors } =
@@ -52,7 +52,7 @@ const EditUserForm = ({formSchema,initialValues}) => {
 
                /> */}
               
-            <FlexBox mr='20px'> <Button type='submit' onClick={handleFormSubmit}  variant='contained' color='error' > Save Changes</Button></FlexBox>
+            <FlexBox mr='20px'> <Button type='submit'   variant='contained' color='error' > Save Changes</Button></FlexBox>
             
               </FlexBox>
               {
