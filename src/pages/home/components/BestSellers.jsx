@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import HomeCardProduct from './HomeCardProduct';
-import { getProduct } from '../../../apis/product';
+import { getAllProducts } from '../../../apis/product';
 import { SnackbarProvider } from 'notistack';
 const BestSellers = ({text}) => {
   const [products, setProducts] = useState([])

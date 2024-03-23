@@ -13,11 +13,11 @@ const Home = () => {
                 <HomeBanner></HomeBanner>
                 <HomeAdvantages></HomeAdvantages>
                 <ScrollText></ScrollText>
-                <BestSellers text={'Best Sellers'}></BestSellers>
+                {/* <BestSellers text={'Best Sellers'}></BestSellers> */}
                 <SubBanner1></SubBanner1>
-                <BestSellers text={'New Arrivals'}></BestSellers>
+                {/* <BestSellers text={'New Arrivals'}></BestSellers> */}
                 <FeaturedBrands></FeaturedBrands>
-                <BestSellers text={'Most Popular'}></BestSellers>
+                {/* <BestSellers text={'Most Popular'}></BestSellers> */}
 
             </Box>
         </Container>

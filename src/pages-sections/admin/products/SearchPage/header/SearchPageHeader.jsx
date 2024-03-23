@@ -1,9 +1,12 @@
-import { Box, Button, Container, FormControl, InputLabel, Menu, MenuItem, Select, } from '@mui/material'
+import { Box, Button, Container, FormControl, InputLabel, Menu, MenuItem, Radio, RadioGroup, Select, } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import AppsIcon from '@mui/icons-material/Apps';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { FlexBox } from '../../../../../components/flex-box';
+import { setSortOrder } from '../../../../../redux/slice/filterSlice';
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../../../../../redux/slice/productsSlice';
 
 
 const StyledLink = styled("div")(({ theme, active_route }) => ({
@@ -16,7 +19,7 @@ const StyledLink = styled("div")(({ theme, active_route }) => ({
 }))
 const SearchPageHeader = () => {
   
-    const [cate, setCate] = useState('');
+    const [sort, setSort] = useState('');
     const NavWrapper = styled(FlexBox)(({  }) => ({
         backgroundColor:'white',
         padding:'20px',
@@ -24,8 +27,15 @@ const SearchPageHeader = () => {
         borderRadius:'8px',
 
     }))
+    const dispatch = useDispatch()
+    const handleFilterChange = (e,type) =>{
+        // dispatch(setFilter({type,value:e.target.value}))
+        console.log('abc');
+    }
     const handleChange = (event) => {
-        setCate(event.target.value)
+        setSort(event.target.value);
+        dispatch(setFilter({type:'sort',value:event.target.value}))
+
       };
   return (
     
@@ -45,17 +55,14 @@ const SearchPageHeader = () => {
                     <Box>Short by :</Box>
                     <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
                         <Select
-                        value={cate}
                         onChange={handleChange}
                         displayEmpty
-                        inputProps={{ 'aria-label': 'Without label' }}
+                        value={sort}
                         >
-                         <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Relevance</MenuItem>
-                        <MenuItem value={20}>Date</MenuItem>
-                        <MenuItem value={30}>Price</MenuItem>
+                        <MenuItem value={'none'}>none</MenuItem>
+                        <MenuItem value={'A-Z'}  >A-Z</MenuItem>
+                        <MenuItem value={'Z-A'} >Z-A</MenuItem>
+                        <MenuItem value={'Price'} >Price</MenuItem>
                         </Select>
                     </FormControl>
                 </FlexBox>

@@ -1,15 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    category: [],
-    brand: [],
-    minPrice: '',
-    maxPrice: '',
-    rating: [],
-    page: 1,
-    limit: 10,
-    sortBy: 'createdAt',
-    sortOrder: 'desc'
+    category: 'all',
+    sortOrder: '',
+    rating:''
 };
 
 const filterSlice = createSlice({
@@ -18,30 +12,15 @@ const filterSlice = createSlice({
     reducers: {
         setCategory: (state, action) => {
             state.category = action.payload;
-        },
-        setSortBy: (state, action) => {
-            state.sortBy = action.payload;
+            // console.log(state.category);    
         },
         setSortOrder: (state, action) => {
-            state.sortOrder = action.payload;
+            state.list = action.payload;
         },
-        setBrand: (state, action) => {
-            state.brand = action.payload;
-        },
-        setRatingFilter: (state, action) => {
-            state.rating = action.payload;
-        },
-        setPage: (state, action) => {
-            state.page = action.payload;
-        },
-        setMinPrice: (state, action) => {
-            state.minPrice = action.payload;
-        },
-        setMaxPrice: (state, action) => {
-            state.maxPrice = action.payload;
-        },
+       
     },
 });
 
-export const { setCategory, setBrand, setPriceRange, setRatingFilter, setPage, setMinPrice, setMaxPrice, setSortBy, setSortOrder } = filterSlice.actions;
+
+export const { setCategory,setSortOrder  } = filterSlice.actions;
 export default filterSlice.reducer;

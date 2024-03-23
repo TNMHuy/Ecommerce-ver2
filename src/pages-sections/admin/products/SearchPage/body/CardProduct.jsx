@@ -14,7 +14,7 @@ const BoxWrapper = styled("div")(() => ({
     marginTop:'50px',
     borderRadius:'8px',
     width: "100%",
-    height:'400px'
+    height:'500px'
   }))
   const StyledLink = styled(Box)(({  active_route }) => ({
     
@@ -39,24 +39,31 @@ const CardProduct = ({item,index}) => {
 
     
        }
-      
+    // const qtt  = useSelector(state => {
+    //     const isProduct = state.addToCart.items.filter( item =>item.product.id === item.id)
+    //     if()
+    // })
     const quantity = useSelector(state=>{
-        const arr = state.addToCart.items.filter( i=> i.product._id===item._id)
+        const arr = state.addToCart.items.filter( i=> i.product.id===item.id)
         if(arr.length>0) return arr[0].quantity
         return 0
     })
+    // console.log(typeof (item.price.toLocaleString("en-US", {style:"currency", currency:"vnd"})));
   return (
     <BoxWrapper key={index}> 
-            <Link to={'/card-detail'}>
-                <Box width={'290px'}>
-                    <Image width={'100%'} src={img}></Image>
-                    <Box fontWeight={'600'}>{item.name}</Box> 
+                <Box width={'290px'} mb={'10px'} >
+                    <Link to={'/card-detail'} >
+                        <Image width={'100%'} height={'300px'} src={item.image}></Image>
+                        <Box fontWeight={'600'} height={'72px'} mt={'20px'} >{item.title} </Box> 
+                    </Link>
+                <Rating name="read-only" value={item.rating.rate} readOnly />
                 </Box>
-            </Link>
-            <Rating name="read-only" value={4} readOnly />
-            <Box display={'flex'} color={'red'} alignItems={'center'} justifyContent={'space-between'} >
-                <Box fontWeight={'600'} mt={''} fontSize={'16px'}>{item.price.toLocaleString("en-US", {style:"currency", currency:"vnd"})}</Box>
-                <Box position={'relative'}>
+            
+            <Box  display={'flex'} color={'red'} alignItems={'center'} justifyContent={'space-between'}  >
+                <Box  fontWeight={'600'} fontSize={'16px'} >{index}
+                    {item.price.toLocaleString("en-US", {style:"currency", currency:"vnd"})}
+                </Box>
+                <Box position={'relative'} >
                     <StyledLink>
                         <Button variant='outlined'  onClick={()=>{handleAddToCart(item)}} sx={{
                                 height:'28px',width:'28px',fontSize:'25px',}}>

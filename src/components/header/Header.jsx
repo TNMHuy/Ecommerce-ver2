@@ -64,10 +64,13 @@ const Header = () => {
     }
     let total = 0 
     const pay = product.items.map((item,index)=>{
-        // console.log(item);
+        // console.log(item.product.price);
+        // console.log(item.quantity);
         const sum = item.product.price * item.quantity
         return total += sum
     })
+    // console.log(total);
+    // console.log(total.toFixed(2).toLocaleString("en-US", {style:"currency", currency:"vnd"}));
     return (
         <HeaderWrapper>
             <Container
@@ -156,6 +159,7 @@ const Header = () => {
                         ?
                        
                         product.items.map((item,index)=>{
+                            // console.log(item);
                             const total = item.product.price * item.quantity
                             return  <Box key={index} display={'flex'} alignItems={'center'} justifyContent={'space-between'} mb={'30px'}>
                             <Box display={'flex'} flexDirection={'column'} textAlign={'center'} >
@@ -183,11 +187,11 @@ const Header = () => {
 
                                 </StyledLink>
                             </Box>
-                            <Image src={CartImg} width={'90px'}></Image>
+                            <Image sx={{height:'90px'}} src={item.product.image} width={'90px'}></Image>
                             <Box display={'flex'} flexDirection={'column'} gap={'3px'} >
                                 <Box fontWeight={'600'}>{item.product.name}</Box>
                                 <Box fontWeight={'100'} fontSize={'12px'}>US${item.product.price} x {item.quantity}</Box>
-                                <Box fontWeight={'600'} color={'red'}>US${total}</Box>
+                                <Box fontWeight={'600'} color={'red'}>US${total.toFixed(2).toLocaleString("en-US", {style:"currency", currency:"vnd"})}</Box>
                             </Box>
                             <StyledLink>
                                 <Button onClick={()=>deleteCart(item)}>
@@ -207,7 +211,7 @@ const Header = () => {
                        }
                         <Box display={'flex'} flexDirection={'column'} gap={'10px'} position={'fixed'} bottom={'20px'}>
                             <Link to={'/checkout'}>
-                                <Button variant='contained'sx={{width:'100%'}} color='error' >Checkout Now (${total})</Button>
+                                <Button variant='contained'sx={{width:'100%'}} color='error' >Checkout Now (${total.toFixed(2).toLocaleString("en-US", {style:"currency", currency:"vnd"})})</Button>
                             </Link>
                                 <Link to={'/cart'}>
                             <Button variant='outlined'sx={{color:'red',width:'332px'}} onClick={()=>handleClose()}  >

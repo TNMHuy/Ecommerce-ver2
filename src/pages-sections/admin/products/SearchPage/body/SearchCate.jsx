@@ -1,11 +1,9 @@
 import styled from '@emotion/styled'
-import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Box,  FormControl, FormControlLabel,  Radio, RadioGroup, Rating } from '@mui/material'
+import React from 'react'
 import { FlexBox } from '../../../../../components/flex-box'
-import { getAllCategories } from '../../../../../apis/product'
-import { useDispatch } from 'react-redux'
-import { setCategory } from '../../../../../redux/slice/filterSlice'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { selectFilters, setFilter,  } from '../../../../../redux/slice/productsSlice'
 
 const BoxWrapper = styled("div")(() => ({
     backgroundColor:'white',
@@ -14,11 +12,7 @@ const BoxWrapper = styled("div")(() => ({
     borderRadius:'8px',
     width:'100%'
 }))
-const Subcate = styled("div")(() => ({
-    fontWeight:'200',
-    fontSize:'16px',
-   
-}))
+
 const CateWrapper = styled("div")(() => ({
    display:'flex',
    flexDirection:'column',
@@ -27,63 +21,32 @@ const CateWrapper = styled("div")(() => ({
    paddingBottom:'20px',
    marginBottom:'30px'
 }))
-const SearchCate = ({filter}) => {
-    // console.log(filter);
-    const [categories,setCategories] = useState([])
+const SearchCate = () => {
+   
     const dispatch = useDispatch()
-    useEffect(()=>{
-        const getAllCate = async () => {
-            const res = await getAllCategories()
-            setCategories(res.data.data)
-        }
-        getAllCate()
-    },[])
-    const handleCategoryChange = (event) => {
-        const selectedCategories = event.target.value;
-        // Toggle the selected category in the array
-        const updatedCategories = filter.category.includes(selectedCategories)
-            ? filter.category.filter((category) => category !== selectedCategories)
-            : [...filter.category, selectedCategories];
-
-        dispatch(setCategory(updatedCategories));
-    };
+    const handleFilterChange = (e,type) =>{
+        dispatch(setFilter({type,value:e.target.value}))
+    }
+    const filters = useSelector(selectFilters)
+   
   return (
     <FlexBox flex={'0.5 1 auto'} >
       < BoxWrapper>
-        <CateWrapper >
-            <Box fontWeight={600}>Categories</Box>
-           {
-            categories.map((item,index)=>
-             <FormControlLabel
-            key={index}
-            sx={{
-                display: "flex",
-            }}
-            // onClick={handleFilterClick('brand', filter.brand ? [...filter.brand, item].join(',') : item)}
-            label={<div >{item.name}</div>}
-            control={<Checkbox size="small" color="secondary"
-                checked={filter.category.includes(item._id)}
-                onChange={handleCategoryChange}
-                value={item._id} />}
-        />)
-           }
-        </CateWrapper>
-        <CateWrapper>
-        <Box fontWeight={600}>Price Range </Box>
-
-        </CateWrapper>
+       
+        
         <CateWrapper>
         <Box fontWeight={600}>Brands </Box>
             <FormControl>
                 <RadioGroup
+                    onChange={(e)=>handleFilterChange(e,'category')}
                     defaultValue="None"
-                    name="brands"
+                    name="category"
                 >
-                    <FormControlLabel value="Marcs" control={<Radio />} label="Marcs" />
-                    <FormControlLabel value="Karts" control={<Radio />} label="Karts" />
-                    <FormControlLabel value="Baars" control={<Radio />} label="Baars" />
-                    <FormControlLabel value="Bukks" control={<Radio />} label="Bukks" />
-                    <FormControlLabel value="Luasis" control={<Radio />} label="Luasis" />
+                    <FormControlLabel checked={filters.category === 'all'} value="all" control={<Radio />} label="all" />
+                    <FormControlLabel checked={filters.category === "men's clothing"} value="men's clothing" control={<Radio />} label="men's clothing" />
+                    <FormControlLabel checked={filters.category === "jewelery"} value="jewelery" control={<Radio />} label="jewelery" />
+                    <FormControlLabel checked={filters.category === "electronics"} value="electronics" control={<Radio />} label="electronics" />
+                    <FormControlLabel checked={filters.category === "women's clothing"} value="women's clothing" control={<Radio />} label="women's clothing" />
                 </RadioGroup>
         </FormControl>
         </CateWrapper>
@@ -92,18 +55,27 @@ const SearchCate = ({filter}) => {
             <Box fontWeight={600}>Ratings </Box>
             <FormControl>
                     <RadioGroup
+                    onChange={(e)=>handleFilterChange(e,'rating')}
                         defaultValue="None"
-                        name="brands"
+                        name="rating"
                     >
+                    <FormControlLabel checked={filters.rating >= '1' && filters.rating<'2'}  value="1" control={<Radio />} label={<Rating name="read-only" value={1} readOnly />}/>
+                    <FormControlLabel checked={filters.rating >= '2' && filters.rating<'3'}  value="2" control={<Radio />} label={<Rating name="read-only" value={2} readOnly />}/>
+                    <FormControlLabel checked={filters.rating >= '3' && filters.rating<'4'}  value="3" control={<Radio />} label={<Rating name="read-only" value={3} readOnly />}/>
+                    <FormControlLabel checked={filters.rating >= '4' && filters.rating<'5'}  value="4" control={<Radio />} label={<Rating name="read-only" value={4} readOnly />}/>
+                    <FormControlLabel checked={filters.rating == '5' }  value="5" control={<Radio />} label={<Rating name="read-only" value={5} readOnly />}/>
+                    <FormControlLabel checked={filters.rating === 'all' }  value="all" control={<Radio />} label={<Rating name="read-only" value={0} readOnly />}/>
+                   
+
                     </RadioGroup>
             </FormControl>
         </CateWrapper>
-        <CateWrapper>
+        {/* <CateWrapper>
             <Box fontWeight={600}>Colors </Box>
             <FlexBox>
                 <Box></Box>
             </FlexBox>
-        </CateWrapper>
+        </CateWrapper> */}
       </BoxWrapper>
     </FlexBox>
   )

@@ -9,6 +9,10 @@ const BASE_URL = 'https://api-hoangquan.onrender.com/';
 //     baseURL: BASE_URL
 // });
 
+export const fakeApi = axios.create({
+    baseURL: 'https://fakestoreapi.com/products'
+});
+
 const api = axios.create({
     baseURL: BASE_URL
 });

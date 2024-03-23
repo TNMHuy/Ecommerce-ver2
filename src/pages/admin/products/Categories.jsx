@@ -10,7 +10,7 @@ import CategoryRow from '../../../pages-sections/admin/CategoryRow';
 import * as yup from "yup";
 import { axiosPrivate } from '../../../apis/axios';
 import CategoryForm from '../../../pages-sections/admin/products/ProductForm/CategoryForm';
-import { getAllCategories } from '../../../apis/product';
+import { getAllProducts } from '../../../apis/product';
 
 const tableHeading = [
     {
@@ -63,7 +63,7 @@ const Categories = () => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const res = await getAllCategories()
+            const res = await getAllProducts()
             if (search) setCategories(res.data.filter(item => item.name.includes(search)))
             else setCategories(res.data)
         }
